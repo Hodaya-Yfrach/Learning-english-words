@@ -1,3 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
-@import 'tailwindcss';
+﻿body { font-family: Nunito,sans-serif; background: #f4f4f4; color: #111111; min-height: 100vh; margin: 0; }
+button { font-family: Nunito,sans-serif; cursor: pointer; transition: all 0.2s ease; }
+button:hover { transform: translateY(-3px); }
+button:active { transform: translateY(0); }

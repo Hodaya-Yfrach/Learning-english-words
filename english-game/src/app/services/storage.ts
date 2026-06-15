@@ -7,6 +7,9 @@ import { User, Word } from '../models';
 export class StorageService {
   currentUser = signal<User | null>(null);
   words = signal<Word[]>([]);
+  scores = signal<number[]>([]);
+  points = signal(0);
+  celebrationActive = signal(false);
 
   constructor() {
     // קסם ההתחברות האוטומטית: בודק אם יש משתמש שמור ברגע שהאתר עולה
@@ -32,22 +35,49 @@ export class StorageService {
     // מחיקת המשתמש והרשימה מהמסך, ומחיקת השמירה מהדפדפן
     this.currentUser.set(null);
     this.words.set([]);
+    this.scores.set([]);
+    this.points.set(0);
+    this.celebrationActive.set(false);
     localStorage.removeItem('active_user_session');
   }
 
   private loadUserData(idNumber: string) {
     const data = localStorage.getItem(`words_game_${idNumber}`);
     if (data) {
-      this.words.set(JSON.parse(data));
+      try {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed)) {
+          this.words.set(parsed);
+          this.scores.set([]);
+          this.points.set(0);
+          this.celebrationActive.set(false);
+        } else {
+          this.words.set(parsed.words || []);
+          this.scores.set(parsed.scores || []);
+          this.points.set(parsed.points || 0);
+          this.celebrationActive.set(parsed.celebrationActive || false);
+        }
+      } catch {
+        this.words.set([]);
+        this.scores.set([]);
+        this.points.set(0);
+      }
     } else {
-      this.words.set([]); 
+      this.words.set([]);
+      this.scores.set([]);
+      this.points.set(0);
     }
   }
 
   private saveUserData() {
     const user = this.currentUser();
     if (user) {
-      localStorage.setItem(`words_game_${user.idNumber}`, JSON.stringify(this.words()));
+      localStorage.setItem(`words_game_${user.idNumber}`, JSON.stringify({
+        words: this.words(),
+        scores: this.scores(),
+        points: this.points(),
+        celebrationActive: this.celebrationActive()
+      }));
     }
   }
 
@@ -67,6 +97,45 @@ export class StorageService {
     this.words.update(currentWords =>
       currentWords.map(word => ({ ...word, status: 'old' }))
     );
+    this.saveUserData();
+  }
+
+  moveWordToOld(wordId: string) {
+    this.words.update(currentWords =>
+      currentWords.map(word =>
+        word.id === wordId ? { ...word, status: 'old' } : word
+      )
+    );
+    this.saveUserData();
+  }
+
+  deleteWord(wordId: string) {
+    this.words.update(currentWords =>
+      currentWords.filter(word => word.id !== wordId)
+    );
+    this.saveUserData();
+  }
+
+  addScore(score: number) {
+    this.scores.update(currentScores => [...currentScores, score]);
+    this.saveUserData();
+  }
+
+  addPoints(points: number) {
+    const nextPoints = this.points() + points;
+    if (nextPoints >= 10000 && !this.celebrationActive()) {
+      this.points.set(10000);
+      this.celebrationActive.set(true);
+      this.saveUserData();
+      setTimeout(() => {
+        this.points.set(0);
+        this.celebrationActive.set(false);
+        this.saveUserData();
+      }, 60_000);
+      return;
+    }
+
+    this.points.set(nextPoints);
     this.saveUserData();
   }
 }

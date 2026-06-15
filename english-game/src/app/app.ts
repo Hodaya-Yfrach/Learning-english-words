@@ -1,19 +1,34 @@
-import { Component, inject, signal } from '@angular/core';
+﻿import { Component, inject, signal } from '@angular/core';
 import { LoginComponent } from './components/login/login';
 import { WordsManagerComponent } from './components/words-manager/words-manager';
 import { MemoryGameComponent } from './components/memory-game/memory-game';
+import { StatsDashboardComponent } from './components/stats-dashboard/stats-dashboard';
 import { StorageService } from './services/storage';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [LoginComponent, WordsManagerComponent, MemoryGameComponent],
+  imports: [LoginComponent, WordsManagerComponent, MemoryGameComponent, StatsDashboardComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styles: [` 
+    :host { display: block; }
+    .shell { min-height: 100vh; background: #f4f4f4; }
+    header { background: #111111; padding: 0 36px; height: 68px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 99; }
+    .logo { font-size: 22px; font-weight: 900; color: #00b4a6; letter-spacing: 1px; font-family: Nunito,sans-serif; }
+    .logo span { color: #ffffff; }
+    nav { display: flex; gap: 10px; }
+    .nav-btn { padding: 9px 22px; border-radius: 8px; border: 2px solid #333; background: transparent; color: #aaa; font-size: 15px; font-weight: 800; font-family: Nunito,sans-serif; transition: all 0.2s; cursor: pointer; }
+    .nav-btn:hover { border-color: #00b4a6; color: #00b4a6; transform: none; }
+    .nav-btn.active { background: #00b4a6; border-color: #00b4a6; color: #111; transform: none; }
+    .user-area { display: flex; align-items: center; gap: 16px; direction: rtl; }
+    .greeting { color: #aaa; font-size: 14px; font-weight: 700; font-family: Nunito,sans-serif; }
+    .greeting b { color: #fff; }
+    .logout { padding: 7px 16px; border-radius: 8px; border: 2px solid #e05252; background: transparent; color: #e05252; font-size: 13px; font-weight: 800; font-family: Nunito,sans-serif; cursor: pointer; }
+    .logout:hover { background: #e05252; color: #fff; transform: none; }
+    main { max-width: 920px; margin: 0 auto; padding: 36px 20px; }
+  `]
 })
 export class AppComponent {
   storageService = inject(StorageService);
-  
-  // משתנה שמחזיק את המסך הנוכחי (ברירת מחדל: אזור הלמידה)
-  currentView = signal<'manager' | 'game'>('manager'); 
+  currentView = signal<'manager' | 'game'>('manager');
 }
