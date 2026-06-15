@@ -1,0 +1,40 @@
+@if (!storageService.currentUser()) {
+  <app-login></app-login>
+} @else {
+  <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+      
+      <div>
+        <h2 style="margin: 0;">שלום {{ storageService.currentUser()?.name }}! 👋</h2>
+        <button 
+          (click)="storageService.logout()" 
+          style="background: none; border: none; color: #e74c3c; text-decoration: underline; cursor: pointer; padding: 5px 0; font-size: 14px;">
+          התנתק / החלף משתמש
+        </button>
+      </div>
+      
+      <div style="display: flex; gap: 10px;">
+        <button 
+          (click)="currentView.set('manager')" 
+          [style.background]="currentView() === 'manager' ? '#3498db' : '#ccc'" 
+          style="padding: 10px; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 16px;">
+          ניהול מילים 📝
+        </button>
+        <button 
+          (click)="currentView.set('game')" 
+          [style.background]="currentView() === 'game' ? '#9b59b6' : '#ccc'" 
+          style="padding: 10px; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 16px;">
+          משחק התאמות 🧩
+        </button>
+      </div>
+    </div>
+
+    @if (currentView() === 'manager') {
+      <app-words-manager></app-words-manager>
+    } @else {
+      <app-memory-game></app-memory-game>
+    }
+
+  </div>
+}

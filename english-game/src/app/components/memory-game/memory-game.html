@@ -1,0 +1,44 @@
+<div class="game-container">
+  
+  @if (gameState() === 'menu') {
+    <div class="menu-screen">
+      <h2>משחק התאמות 🧩</h2>
+      <p>בחר עם אילו מילים תרצה לשחק:</p>
+      <div class="buttons">
+        <button class="btn-new" (click)="startGame('new')">מילים חדשות בלבד</button>
+        <button class="btn-all" (click)="startGame('all')">כל המילים שלי</button>
+      </div>
+    </div>
+  }
+
+  @if (gameState() === 'playing') {
+    <div class="playing-screen">
+      <div class="stats">
+        <span>טעויות: {{ errorsCount() }}</span>
+      </div>
+      
+      <div class="board">
+        @for (card of cards(); track card.id) {
+          <div 
+            class="match-card" 
+            [class.selected]="card.isSelected" 
+            [class.matched]="card.isMatched"
+            [class.error]="card.isError"
+            (click)="onCardClick(card)">
+            {{ card.text }}
+          </div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (gameState() === 'finished') {
+    <div class="finished-screen">
+      <h2>כל הכבוד! סיימת את המשחק! 🎉</h2>
+      <p>מספר טעויות: <strong>{{ errorsCount() }}</strong></p>
+      <p>הציון שלך: <strong class="score">{{ finalScore() }}</strong> מתוך 100</p>
+      <button class="btn-all" (click)="gameState.set('menu')">שחק שוב 🔄</button>
+    </div>
+  }
+
+</div>
