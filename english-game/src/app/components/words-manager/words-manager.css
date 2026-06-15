@@ -1,0 +1,95 @@
+.manager-container {
+  background: #fff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  margin-top: 20px;
+  direction: rtl;
+}
+
+h3 {
+  color: #2c3e50;
+  text-align: center;
+}
+
+.add-word-box {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+input {
+  padding: 10px;
+  border: 2px solid #bdc3c7;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.eng {
+  font-family: sans-serif;
+  font-weight: bold;
+  color: #2980b9;
+}
+
+.btn-add {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.lists-wrapper {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.list-column {
+  flex: 1;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 15px;
+  min-width: 250px;
+}
+
+.words-list {
+  list-style: none;
+  padding: 0;
+}
+
+.words-list li {
+  background: white;
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 18px;
+}
+
+.old-list li {
+  background: #ecf0f1;
+  color: #7f8c8d;
+}
+
+.btn-move {
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 15px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.empty-msg {
+  color: #95a5a6;
+  font-style: italic;
+  text-align: center;
+}

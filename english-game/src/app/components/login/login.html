@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h2>ברוכים הבאים למשחק המילים! 🔠</h2>
+  <p>הכנס את הפרטים שלך כדי להתחיל ללמוד ולשחק:</p>
+  
+  <div class="input-group">
+    <label for="name">שם פרטי:</label>
+    <input type="text" id="name" #nameInput placeholder="לדוגמה: דוד">
+  </div>
+
+  <div class="input-group">
+    <label for="idNumber">תעודת זהות:</label>
+    <input type="text" id="idNumber" #idInput placeholder="הקלד את תעודת הזהות שלך...">
+  </div>
+
+  <button class="login-btn" (click)="onLogin(nameInput.value, idInput.value)">
+    בואו נתחיל! 🚀
+  </button>
+</div>
