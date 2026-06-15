@@ -1,0 +1,29 @@
+<section class="stats-dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h3>סטטיסטיקת משתמש</h3>
+      <p>שיא אישי: <strong>{{ highScore() }}</strong></p>
+      <p>ממוצע 10 אחרונים: <strong>{{ average() }}</strong></p>
+    </div>
+    <div class="score-chip">נקודות: <span>{{ storageService.points() }}</span></div>
+  </div>
+
+  <div class="score-chart">
+    @if (lastScores().length === 0) {
+      <p class="empty-state">אין עדיין היסטוריית ציון לשחק.</p>
+    } @else {
+      <div class="chart-labels">
+        @for (let i = 0; i < lastScores().length; i++) {
+          <span>#{lastScores().length - i}</span>
+        }
+      </div>
+      <div class="chart-bars">
+        @for (const score of lastScores()) {
+          <div class="bar" style="height: calc(20px + (score * 1.4px));">
+            <span>{{ score }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>
