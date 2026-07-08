@@ -13,14 +13,15 @@
       <p class="empty-state">אין עדיין היסטוריית ציון לשחק.</p>
     } @else {
       <div class="chart-labels">
-        @for (let i = 0; i < lastScores().length; i++) {
-          <span>#{lastScores().length - i}</span>
+        @for (let bar of chartData()) {
+          <span>{{ bar.label }}</span>
         }
       </div>
       <div class="chart-bars">
-        @for (const score of lastScores()) {
-          <div class="bar" style="height: calc(20px + (score * 1.4px));">
-            <span>{{ score }}</span>
+        @for (let bar of chartData()) {
+          <div class="bar" [class.up]="bar.trend === 'up'" [class.down]="bar.trend === 'down'" [class.equal]="bar.trend === 'equal'" [style.height.px]="bar.height">
+            <span class="bar-value">{{ bar.score }}</span>
+            <span class="bar-trend">{{ bar.trend === 'up' ? '⬆' : bar.trend === 'down' ? '⬇' : '−' }}</span>
           </div>
         }
       </div>

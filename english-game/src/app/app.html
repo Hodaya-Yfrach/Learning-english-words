@@ -5,6 +5,7 @@
     <header>
       <div class="logo">Word<span>Master</span> 📖</div>
       <nav>
+        <button class="nav-btn" [class.active]="currentView() === 'status'" (click)="currentView.set('status')">📊 סטטוס</button>
         <button class="nav-btn" [class.active]="currentView() === 'manager'" (click)="currentView.set('manager')">📝 ניהול מילים</button>
         <button class="nav-btn" [class.active]="currentView() === 'game'" (click)="currentView.set('game')">🧩 משחק התאמות</button>
       </nav>
@@ -24,8 +25,9 @@
       </div>
     }
     <main>
-      <app-stats-dashboard></app-stats-dashboard>
-      @if (currentView() === 'manager') {
+      @if (currentView() === 'status') {
+        <app-stats-dashboard></app-stats-dashboard>
+      } @else if (currentView() === 'manager') {
         <app-words-manager></app-words-manager>
       } @else {
         <app-memory-game></app-memory-game>

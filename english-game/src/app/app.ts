@@ -30,5 +30,5 @@ import { StorageService } from './services/storage';
 })
 export class AppComponent {
   storageService = inject(StorageService);
-  currentView = signal<'manager' | 'game'>('manager');
+  currentView = signal<'manager' | 'game' | 'status'>('status');
 }

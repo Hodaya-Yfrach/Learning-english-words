@@ -6,7 +6,12 @@
 .score-chip span { color: #ffea00; }
 .score-chart { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 18px; }
 .chart-labels { display: flex; justify-content: space-between; color: #748096; font-size: 12px; margin-bottom: 12px; }
-.chart-bars { display: flex; align-items: flex-end; gap: 12px; }
-.bar { width: 28px; background: linear-gradient(180deg, #00d8c8, #007f72); border-radius: 14px 14px 4px 4px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 8px; position: relative; }
-.bar span { color: #fff; font-size: 12px; font-weight: 800; transform: translateY(4px); }
+.chart-bars { display: flex; align-items: flex-end; gap: 12px; min-height: 220px; }
+.bar { width: 32px; background: linear-gradient(180deg, #00d8c8, #007f72); border-radius: 14px 14px 4px 4px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; position: relative; transition: height 0.25s ease, background 0.25s ease; }
+.bar span { color: #fff; font-size: 12px; font-weight: 800; line-height: 1; }
+.bar .bar-value { position: absolute; top: 8px; }
+.bar .bar-trend { position: absolute; bottom: 6px; font-size: 13px; }
+.bar.up { background: linear-gradient(180deg, #5cffb3, #00b488); }
+.bar.down { background: linear-gradient(180deg, #ff8c8c, #e05252); }
+.bar.equal { background: linear-gradient(180deg, #aab8ff, #4a5bcc); }
 .empty-state { text-align: center; color: #9fa8b9; font-weight: 700; padding: 28px 0; }

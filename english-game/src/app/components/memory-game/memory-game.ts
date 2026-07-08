@@ -113,6 +113,7 @@ export class MemoryGameComponent {
       let score = Math.round(((maxErrors - Math.min(errors, maxErrors)) / maxErrors) * 100);
       if (score < 0) score = 0;
       this.finalScore.set(score);
+      this.storageService.addScore(score);
       setTimeout(() => this.gameState.set('finished'), 500);
     }
   }

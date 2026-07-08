@@ -50,7 +50,21 @@ export class StatsDashboardComponent {
 
   scores = computed(() => this.storageService.scores());
   lastScores = computed(() => this.scores().slice(-10));
-  chartLabels = computed(() => this.lastScores().map((_, idx) => `#${this.lastScores().length - idx}`));
+  chartData = computed(() => {
+    const scores = this.lastScores();
+    const maxScore = Math.max(100, ...scores);
+    return scores.map((score, index) => {
+      const previous = index > 0 ? scores[index - 1] : null;
+      const height = Math.round((score / maxScore) * 180 + 20);
+      return {
+        score,
+        label: `#${scores.length - index}`,
+        trend: previous === null ? 'equal' : score > previous ? 'up' : score < previous ? 'down' : 'equal',
+        change: previous === null ? 0 : score - previous,
+        height
+      };
+    });
+  });
   average = computed(() => {
     const scores = this.lastScores();
     if (scores.length === 0) return 0;
