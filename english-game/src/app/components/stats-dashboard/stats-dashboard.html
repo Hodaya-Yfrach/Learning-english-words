@@ -1,0 +1,30 @@
+<section class="stats-dashboard">
+  <div class="dashboard-header">
+    <div>
+      <h3>סטטיסטיקת משתמש</h3>
+      <p>שיא אישי: <strong>{{ highScore() }}</strong></p>
+      <p>ממוצע 10 אחרונים: <strong>{{ average() }}</strong></p>
+    </div>
+    <div class="score-chip">נקודות: <span>{{ storageService.points() }}</span></div>
+  </div>
+
+  <div class="score-chart">
+    @if (lastScores().length === 0) {
+      <p class="empty-state">אין עדיין היסטוריית ציון לשחק.</p>
+    } @else {
+      <div class="chart-labels">
+        @for (let bar of chartData()) {
+          <span>{{ bar.label }}</span>
+        }
+      </div>
+      <div class="chart-bars">
+        @for (let bar of chartData()) {
+          <div class="bar" [class.up]="bar.trend === 'up'" [class.down]="bar.trend === 'down'" [class.equal]="bar.trend === 'equal'" [style.height.px]="bar.height">
+            <span class="bar-value">{{ bar.score }}</span>
+            <span class="bar-trend">{{ bar.trend === 'up' ? '⬆' : bar.trend === 'down' ? '⬇' : '−' }}</span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

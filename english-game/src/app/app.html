@@ -1,0 +1,37 @@
+﻿@if (!storageService.currentUser()) {
+  <app-login></app-login>
+} @else {
+  <div class="shell">
+    <header>
+      <div class="logo">Word<span>Master</span> 📖</div>
+      <nav>
+        <button class="nav-btn" [class.active]="currentView() === 'status'" (click)="currentView.set('status')">📊 סטטוס</button>
+        <button class="nav-btn" [class.active]="currentView() === 'manager'" (click)="currentView.set('manager')">📝 ניהול מילים</button>
+        <button class="nav-btn" [class.active]="currentView() === 'game'" (click)="currentView.set('game')">🧩 משחק התאמות</button>
+      </nav>
+      <div class="user-area">
+        <span class="greeting">שלום, <b>{{ storageService.currentUser()?.name }}</b> 👋</span>
+        <span class="points-badge">⭐ {{ storageService.points() }} נקודות</span>
+        <button class="logout" (click)="storageService.logout()">התנתק</button>
+      </div>
+    </header>
+    @if (storageService.celebrationActive()) {
+      <div class="celebration-overlay">
+        <div class="celebration-card">
+          <h2>מזל טוב! הגעת ל-10,000 נקודות!</h2>
+          <p>חגיגה מלאה במסך + יום שלמה של ניצחון 🎉</p>
+          <div class="confetti-ring"></div>
+        </div>
+      </div>
+    }
+    <main>
+      @if (currentView() === 'status') {
+        <app-stats-dashboard></app-stats-dashboard>
+      } @else if (currentView() === 'manager') {
+        <app-words-manager></app-words-manager>
+      } @else {
+        <app-memory-game></app-memory-game>
+      }
+    </main>
+  </div>
+}

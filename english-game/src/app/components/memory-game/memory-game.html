@@ -1,0 +1,38 @@
+﻿<div class="game-container">
+
+  @if (gameState() === 'menu') {
+    <div class="menu-screen">
+      <h2>משחק התאמות 🧩</h2>
+      <p>בחר עם אילו מילים תרצה לשחק:</p>
+      <div class="buttons">
+        <button class="btn-new" (click)="startGame('new')">מילים חדשות בלבד</button>
+        <button class="btn-all" (click)="startGame('all')">כל המילים שלי</button>
+      </div>
+    </div>
+  }
+
+  @if (gameState() === 'playing') {
+    <div class="playing-screen">
+      <div class="stats"><span>❌ טעויות: {{ errorsCount() }}</span></div>
+      <div class="board">
+        @for (card of cards(); track card.id) {
+          <div class="match-card" [class.selected]="card.isSelected" [class.matched]="card.isMatched" [class.error]="card.isError" (click)="onCardClick(card)">{{ card.text }}</div>
+        }
+      </div>
+    </div>
+  }
+
+  @if (gameState() === 'finished') {
+    <div class="finished-screen" [class.score-amazing]="finalScore() >= 95" [class.score-great]="finalScore() >= 85 && finalScore() < 95" [class.score-good]="finalScore() >= 75 && finalScore() < 85" [class.score-low]="finalScore() < 75">
+      <div class="confetti-container" [class.show]="finalScore() >= 75"></div>
+      <div class="score-emoji">{{ finalScore() >= 95 ? '🤩' : finalScore() >= 85 ? '😄' : finalScore() >= 75 ? '🙂' : '😢' }}</div>
+      <div class="score-number">{{ finalScore() }}</div>
+      <div class="score-label">מתוך 100</div>
+      <h2>{{ finalScore() >= 95 ? 'וואו! מושלם לגמרי! 🎉' : finalScore() >= 85 ? 'כל הכבוד! עבודה מצוינת!' : finalScore() >= 75 ? 'יפה! קצת עוד ותהיה מושלם!' : 'אל תתייאש, אתה יכול!' }}</h2>
+      <p class="score-sub">{{ finalScore() >= 95 ? 'אתה פשוט מדהים! שיא חדש!' : finalScore() >= 85 ? 'עוד קצת אימון ותגיע ל-100!' : finalScore() >= 75 ? 'נסה שוב כדי לשפר את הציון 💪' : 'אפשר לשנות! שחק שוב ותראה כמה תשתפר 🌟' }}</p>
+      <p class="errors-info">טעויות: <strong>{{ errorsCount() }}</strong></p>
+      <button class="btn-all" (click)="gameState.set('menu')">שחק שוב 🔄</button>
+    </div>
+  }
+
+</div>

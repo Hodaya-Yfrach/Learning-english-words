@@ -1,0 +1,72 @@
+<div class="manager-container">
+  <h3>מאגר המילים שלי 📚</h3>
+  <p class="subtitle">הוסיפו מילים חדשות ובנו לכם אוצר מילים ענק!</p>
+  
+  <div class="add-word-box">
+    <input 
+      type="text" 
+      #engInput 
+      (input)="fixEnglishTyping($event)" 
+      placeholder="מילה באנגלית (למשל: Cat)" 
+      dir="ltr"
+      class="input-english">
+      
+    <input type="text" #hebInput placeholder="תרגום לעברית (למשל: חתול)" dir="rtl" (input)="fixHebrewTyping($event)" class="input-hebrew">
+    
+    <button class="btn-add" (click)="onAddWord(engInput, hebInput)">הוסף למאגר ➕</button>
+  </div>
+
+  <div class="lists-wrapper">
+    <div class="list-column">
+      <h4>מילים חדשות ({{ newWords().length }}) 🌱</h4>
+      
+      @if (newWords().length === 0) {
+        <p class="empty-msg">אין מילים חדשות, איזה כיף! 🎉</p>
+      } @else {
+        <ul class="words-list">
+          @for (word of newWords(); track word.id) {
+            <li>
+              <div class="word-line">
+                <div class="word-text">
+                  <span class="eng">{{ word.english }}</span>
+                  <span class="divider">-</span>
+                  <span>{{ word.hebrew }}</span>
+                </div>
+                <div class="word-actions">
+                  <button class="btn-move-inline" (click)="onMoveWordToOld(word.id)">העבר לישנות</button>
+                  <button class="btn-delete" (click)="onDeleteWord(word.id)">מחק</button>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+        <button class="btn-move" (click)="onMoveToOld()">סיימתי ללמוד! העבר לישנות 📦</button>
+      }
+    </div>
+
+    <div class="list-column">
+      <h4>מילים שכבר למדתי ({{ oldWords().length }}) 🏆</h4>
+      
+      @if (oldWords().length === 0) {
+        <p class="empty-msg">עדיין אין כאן מילים.</p>
+      } @else {
+        <ul class="words-list old-list">
+          @for (word of oldWords(); track word.id) {
+            <li>
+              <div class="word-line">
+                <div class="word-text">
+                  <span class="eng">{{ word.english }}</span>
+                  <span class="divider">-</span>
+                  <span>{{ word.hebrew }}</span>
+                </div>
+                <div class="word-actions">
+                  <button class="btn-delete" (click)="onDeleteWord(word.id)">מחק</button>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  </div>
+</div>

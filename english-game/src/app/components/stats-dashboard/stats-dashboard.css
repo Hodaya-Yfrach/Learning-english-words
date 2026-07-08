@@ -1,0 +1,17 @@
+.stats-dashboard { background: linear-gradient(145deg, #111111 0%, #161a1f 100%); border: 2px solid #00b4a6; border-radius: 24px; padding: 24px; margin-bottom: 24px; color: #f1f1f1; box-shadow: 0 24px 60px rgba(0,0,0,0.15); }
+.dashboard-header { display: flex; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+.dashboard-header h3 { margin: 0; font-size: 22px; color: #00d8c8; }
+.dashboard-header p { margin: 6px 0; color: #cbd5d9; }
+.score-chip { background: rgba(0,180,166,0.15); border: 1px solid rgba(0,180,166,0.35); border-radius: 18px; padding: 12px 18px; font-weight: 900; color: #fff; }
+.score-chip span { color: #ffea00; }
+.score-chart { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 20px; padding: 18px; }
+.chart-labels { display: flex; justify-content: space-between; color: #748096; font-size: 12px; margin-bottom: 12px; }
+.chart-bars { display: flex; align-items: flex-end; gap: 12px; min-height: 220px; }
+.bar { width: 32px; background: linear-gradient(180deg, #00d8c8, #007f72); border-radius: 14px 14px 4px 4px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 14px; position: relative; transition: height 0.25s ease, background 0.25s ease; }
+.bar span { color: #fff; font-size: 12px; font-weight: 800; line-height: 1; }
+.bar .bar-value { position: absolute; top: 8px; }
+.bar .bar-trend { position: absolute; bottom: 6px; font-size: 13px; }
+.bar.up { background: linear-gradient(180deg, #5cffb3, #00b488); }
+.bar.down { background: linear-gradient(180deg, #ff8c8c, #e05252); }
+.bar.equal { background: linear-gradient(180deg, #aab8ff, #4a5bcc); }
+.empty-state { text-align: center; color: #9fa8b9; font-weight: 700; padding: 28px 0; }

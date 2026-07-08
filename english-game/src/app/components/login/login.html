@@ -1,0 +1,21 @@
+﻿<div class="login-page-bg">
+  <div class="login-container">
+    <h2>מעכשיו לומדים מילים בקלות! 🔠</h2>
+    <p>בואו נתחיל!</p>
+    <div class="input-group">
+      <label for="name">השם שלך (באנגלית):</label>
+      <input type="text" id="name" #nameInput placeholder="..." maxlength="15" dir="rtl">
+    </div>
+    <div class="input-group">
+      <label for="idNumber">תעודת זהות:</label>
+      <input type="text" id="idNumber" #idInput placeholder="..." maxlength="9">
+    </div>
+    @if (errorMessage()) {
+      <div class="error-box">
+        <span class="error-icon">⚠️</span>
+        <span>{{ errorMessage() }}</span>
+      </div>
+    }
+    <button class="login-btn" (click)="onLogin(nameInput.value, idInput.value)">מתחילים? 🚀</button>
+  </div>
+</div>
